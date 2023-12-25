@@ -5,7 +5,7 @@ from Setup import Constants, GlobalVars
 def decode():
     level_number = GlobalVars.current_level
 
-    level_file = open(f"../Resources/Levels/Active/{level_number}.txt", "r")
+    level_file = open(f"{Constants.ACTIVE_LEVELS_FP}{level_number}.txt", "r")
     file_lines = list(filter(None, level_file.read().split("\n")))
     level_file.close()
 

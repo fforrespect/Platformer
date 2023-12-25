@@ -32,3 +32,6 @@ PLATFORM_BORDER_RADIUS = 0
 LEFT_BUTTON = pygame.K_a
 RIGHT_BUTTON = pygame.K_d
 JUMP_BUTTON = pygame.K_SPACE
+
+# Files #
+ACTIVE_LEVELS_FP = "../Resources/Levels/Active/"
