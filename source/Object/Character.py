@@ -38,7 +38,7 @@ class Character:
         self.lives      = 3
         self.is_dead    = False
         self.enemy_hash = (sum(size) + sum(position)) if is_enemy else -1
-        print(self.enemy_hash)
+        # print(self.enemy_hash)
 
         if not is_enemy:
             player.append(self)
@@ -117,7 +117,7 @@ class Character:
         bullet.shoot()
 
 
-    def _leaves_screen(self, teleports):
+    def _check_leaves_screen(self, teleports):
         level = GlobalVars.current_level
 
         # Just simplify the direction the player is leaving
@@ -137,6 +137,8 @@ class Character:
             GlobalVars.current_level = int(teleports[new_level_key])
             # remove all bullets
             Bullet.active_bullets = []
+            # remove all enemies
+            Character.active_enemies = []
             print("\n"*10 + "NEW LEVEL" + "\n"*10)
         else:
             return
@@ -197,7 +199,7 @@ class Character:
 
         # check if the player's left the screen
         if not self.is_enemy:
-            self._leaves_screen(teleports)
+            self._check_leaves_screen(teleports)
 
         # check which way the character is facing
         self.facing = 0 if self.velocity[0] < 0 else 1

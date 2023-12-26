@@ -10,7 +10,7 @@ from Setup import Constants, GlobalVars
 
 
 # Initialise global variables
-GlobalVars.current_level = level_memory = 1
+GlobalVars.current_level = level_memory = 0
 GlobalVars.game_running = True
 GlobalVars.all_objects = []
 

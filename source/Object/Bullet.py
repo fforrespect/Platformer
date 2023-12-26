@@ -62,8 +62,19 @@ class Bullet:
         if (object_hit != self.shooter) and \
            (object_hit != self):
 
+            if isinstance(object_hit, Character.Character) and \
+                    object_hit.is_enemy and \
+                    object_hit.enemy_hash == self.shooter.enemy_hash:
+                return
+
+
+            print("shooter", self.shooter)
+
             if isinstance(object_hit, Character.Character):
+                print("hit", object_hit)
                 object_hit.is_hit()
+
+            print()
 
             active_bullets.remove(self)
             self._explode()
