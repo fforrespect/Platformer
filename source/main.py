@@ -30,7 +30,7 @@ player = Character.Character(
 )
 
 # Set up the first level
-decoded_objects, teleports = Level.decode()
+decoded_objects, teleports = Level.initialise()
 
 # Logic to make sure only one click is counted at a time
 check_click = 0

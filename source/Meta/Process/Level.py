@@ -1,5 +1,22 @@
+import os
+import shutil
+
 from Object import Character, Platform
 from Setup import Constants, GlobalVars
+
+
+def initialise():
+    directories = (Constants.STORED_LEVELS_FP, Constants.ACTIVE_LEVELS_FP)
+
+    # iterate over files in the directories
+    for file_name in os.listdir(directories[0]):
+        # generate filepaths
+        filepaths = list(map(lambda x: os.path.join(x, file_name), directories))
+        # create a copy of the file, to be used in the program
+        shutil.copyfile(*filepaths)
+
+    return decode()
+
 
 
 def decode():

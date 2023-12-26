@@ -35,3 +35,4 @@ JUMP_BUTTON = pygame.K_SPACE
 
 # Files #
 ACTIVE_LEVELS_FP = "../Resources/Levels/Active/"
+STORED_LEVELS_FP = "../Resources/Levels/Store/"
