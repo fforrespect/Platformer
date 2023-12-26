@@ -29,7 +29,7 @@ def decode():
 
     decoded_objects = []
     # will be used later to determine which direction the player can go
-    dirs = ["L", "R", "U", "D"]
+    directions = ("L", "R", "U", "D")
     teleports = {}
 
     for line in file_lines:
@@ -37,37 +37,38 @@ def decode():
         if line == '':
             continue
 
-        # add to / create the teleports dictionary
-        if line[0] in dirs:
-            teleports[(level_number, dirs.index(line[0]))] = line[2:]
+        match line[0]:
+            # add to the teleports dictionary
+            case direction if direction in directions:
+                teleports[(level_number, direction)] = line[2:]
 
-        # Platform
-        elif line[0] == "P":
-            # process the platform information
-            data = list(map(int, line[2:].split(", ")))
-            # add the platform to the objects list
-            decoded_objects.append(Platform.Platform(data[:2], data[2:]))
+            # Platform
+            case "P":
+                # process the platform information
+                data = list(map(int, line[2:].split(", ")))
+                # add the platform to the objects list
+                decoded_objects.append(Platform.Platform(data[:2], data[2:]))
 
-        # Player (Character)
-        elif line[0] == "C":
-            pass
+            # Player (Character)
+            case "C":
+                pass
 
-        # Enemy
-        elif line[0] == "E":
-            # process the enemy information...
-            data = list(map(int, line[2:].split(", ")))
+            # Enemy
+            case "E":
+                # process the enemy information...
+                data = list(map(int, line[2:].split(", ")))
 
-            # ...and instantiate the enemy with that info
-            enemy = Character.Character(
-                size=Constants.ENEMY_SIZE,
-                position=data[:2],
-                speed=Constants.ENEMY_SPEED,
-                level=level_number,
-                facing=data[2]
-            )
+                # ...and instantiate the enemy with that info
+                enemy = Character.Character(
+                    size=Constants.ENEMY_SIZE,
+                    position=data[:2],
+                    speed=Constants.ENEMY_SPEED,
+                    level=level_number,
+                    facing=data[2]
+                )
 
-            # finally, add the newly created enemy to the objects list
-            decoded_objects.append(enemy)
+                # finally, add the newly created enemy to the objects list
+                decoded_objects.append(enemy)
 
     return decoded_objects, teleports
 
