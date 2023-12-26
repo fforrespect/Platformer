@@ -29,7 +29,7 @@ class Character:
         self.speed      = speed
         self.level      = level
         self.facing     = facing # 0 is left, 1 is right
-        self.is_enemy   = is_enemy # 0 is player, 1 is enemy
+        self.is_enemy   = is_enemy
 
         self.velocity   = [0, 0]
         self.colour     = Colours.RED if is_enemy else Colours.GREEN
@@ -37,7 +37,6 @@ class Character:
         self.lives      = 3
         self.is_dead    = False
         self.enemy_hash = (sum(size) + sum(position)) if is_enemy else -1
-        # print(self.enemy_hash)
 
         if is_enemy:
             active_enemies.append(self)
@@ -209,8 +208,6 @@ class Character:
             self.level = GlobalVars.current_level
 
 
-
-
     def is_hit(self):
         self.lives -= 1
         print(f"{str(self)} was hit! {self.lives} lives left!")
@@ -226,8 +223,5 @@ class Character:
         # if an enemy dies, remove any memory of them ever existing
         if self.is_enemy:
             EnemyDies.process(self)
-            # active_enemies.remove(self)
-            # GlobalVars.all_objects.remove(self)
-
         else:
             GameOver.player_dies()
