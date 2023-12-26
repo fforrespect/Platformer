@@ -1,6 +1,6 @@
 import pygame
 
-from Event import EnemyDies, GameOver, EnemyMoves
+from Event import EnemyDies, GameOver, EnemyMoves, PlayerLeavesScreen
 from Meta.Process import PlatformRects
 from Object import Bullet
 from Setup import Constants, GlobalVars, Colours
@@ -44,6 +44,7 @@ class Character:
             player.append(self)
         else:
             active_enemies.append(self)
+            print(active_enemies)
 
 
     def __str__(self):
@@ -134,12 +135,7 @@ class Character:
         # only change the level if it's a valid teleport point
         #   (if it isn't, the player will just fall off the screen)
         if new_level_key in teleports:
-            GlobalVars.current_level = int(teleports[new_level_key])
-            # remove all bullets
-            Bullet.active_bullets = []
-            # remove all enemies
-            Character.active_enemies = []
-            print("\n"*10 + "NEW LEVEL" + "\n"*10)
+            PlayerLeavesScreen.process(new_level_key, teleports)
         else:
             return
 
