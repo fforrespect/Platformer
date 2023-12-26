@@ -9,5 +9,5 @@ def process(new_level_key, teleports):
     # remove all bullets
     Bullet.active_bullets = []
     # remove all enemies
-    map(lambda x: EnemyDies.process(x, True), Character.active_enemies)
+    map(lambda x: EnemyDies.process(x, False), Character.active_enemies)
     Character.active_enemies = []
