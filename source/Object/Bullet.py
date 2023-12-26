@@ -38,7 +38,6 @@ def move_all():
 
 
 class Bullet:
-
     def __init__(self, shooter, pos, aim):
         self.shooter = shooter
         self.pos = pos
