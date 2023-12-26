@@ -1,10 +1,19 @@
-from Setup import GlobalVars, Colours
+import pygame
+
+from Setup import GlobalVars, Colours, Constants
 
 
 def display():
+    # How many lives the player has
     lives = GlobalVars.player.lives
 
-    life = Life((0, 0), 200)
+    for i in range(lives):
+        Life((Constants.LIVES_START_X - (i * Constants.LIVES_SPACING),
+              Constants.LIVES_PADDING), Constants.LIVES_RADIUS)
+
+
+def draw(screen, life):
+    pygame.draw.circle(screen, life.colour, life.centre, life.radius)
 
 
 class Life:
@@ -14,4 +23,4 @@ class Life:
 
         self.colour = Colours.RED
 
-        GlobalVars.all_overlays.append("c", )
+        GlobalVars.all_overlays.append(("Life", self))

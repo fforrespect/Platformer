@@ -70,6 +70,8 @@ while GlobalVars.game_running:
     Character.move_all(inputs, teleports)
     Bullet.move_all()
 
+    # Reset all the overlays
+    GlobalVars.all_overlays = []
     Lives.display()
 
     # And finally, draw everything to the screen
