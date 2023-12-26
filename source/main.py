@@ -1,10 +1,9 @@
 import sys
 import pygame
 
-from Meta import Window
-from Event import GameOver
+from Meta.Display import Window, Lives
 from Meta.Process import Level
-
+from Event import GameOver
 from Object import Character, Bullet
 from Setup import Constants, GlobalVars
 
@@ -20,7 +19,7 @@ screen = pygame.display.set_mode(Constants.SCREEN_SIZE)
 clock = pygame.time.Clock()
 
 # Initialise character
-player = Character.Character(
+GlobalVars.player = Character.Character(
     size=Constants.PLAYER_SIZE,
     position=Constants.PLAYER_START_POSITION,
     speed=Constants.PLAYER_SPEED,
@@ -50,7 +49,7 @@ while GlobalVars.game_running:
         level_memory = GlobalVars.current_level
 
     # Define which objects are on the screen...
-    GlobalVars.all_objects = [player] + decoded_objects + Bullet.active_bullets
+    GlobalVars.all_objects = [GlobalVars.player] + decoded_objects + Bullet.active_bullets
     # ...and remove any dead characters
     Character.remove_if_dead()
 
@@ -70,6 +69,8 @@ while GlobalVars.game_running:
     # Move all the movable objects to their new positions
     Character.move_all(inputs, teleports)
     Bullet.move_all()
+
+    Lives.display()
 
     # And finally, draw everything to the screen
     Window.display(screen)

@@ -6,13 +6,12 @@ from Object import Bullet
 from Setup import Constants, GlobalVars, Colours
 
 
-player = []
 active_enemies = []
 
 
 def move_all(inputs, teleports):
     # Run the move function for all characters
-    for c in player + active_enemies:
+    for c in GlobalVars.player + active_enemies:
         c.move(inputs, teleports)
 
 
@@ -40,11 +39,8 @@ class Character:
         self.enemy_hash = (sum(size) + sum(position)) if is_enemy else -1
         # print(self.enemy_hash)
 
-        if not is_enemy:
-            player.append(self)
-        else:
+        if is_enemy:
             active_enemies.append(self)
-            print(active_enemies)
 
 
     def __str__(self):
@@ -186,7 +182,7 @@ class Character:
 
         else:
             # outsource it all to the EnemyMoves file
-            l_or_r, has_jumped, aim = EnemyMoves.process(self, player[0])
+            l_or_r, has_jumped, aim = EnemyMoves.process(self)
 
         # perform actions
         self._move_left_right(l_or_r, all_platform_rects)

@@ -5,7 +5,9 @@ from Meta.Process import UnitVector
 from Setup import GlobalVars
 
 
-def process(enemy, player):
+def process(enemy):
+    player = GlobalVars.player
+
     enemy_pos = enemy.rect.center
     player_pos = player.rect.center
 
