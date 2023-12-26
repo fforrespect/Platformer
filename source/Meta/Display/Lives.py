@@ -8,19 +8,18 @@ def display():
     lives = GlobalVars.player.lives
 
     for i in range(lives):
-        Life((Constants.LIVES_START_X - (i * Constants.LIVES_SPACING),
-              Constants.LIVES_PADDING), Constants.LIVES_RADIUS)
-
-
-def draw(screen, life):
-    pygame.draw.circle(screen, life.colour, life.centre, life.radius)
+        Life(i)
 
 
 class Life:
-    def __init__(self, centre, radius):
-        self.centre = centre
-        self.radius = radius
+    def __init__(self, number):
+        self.centre = (Constants.LIVES_START_X - (number * Constants.LIVES_SPACING), Constants.LIVES_PADDING)
+        self.radius = Constants.LIVES_RADIUS
 
         self.colour = Colours.RED
 
-        GlobalVars.all_overlays.append(("Life", self))
+        GlobalVars.all_overlays.append(self)
+
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, self.colour, self.centre, self.radius)

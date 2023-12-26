@@ -48,6 +48,10 @@ class Character:
                f" of size {self.size}, at pos {(self.rect.left, self.rect.top)}"
 
 
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.colour, self.rect, border_radius=Constants.CHAR_BORDER_RADIUS)
+
+
     def delete(self):
         active_enemies.remove(self)
 

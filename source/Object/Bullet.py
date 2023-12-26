@@ -21,14 +21,14 @@ def move_all():
         b.pos[1] += b.velocity[1]
 
         # Move the rectangle to that position
-        b.rect.update(b.pos, b.size)
+        b.rect.update(b.pos, (b.size, b.size))
 
         # If it leaves the screen, stop rendering it
         if (
-                (b.pos[0] - b.size[0]) < 0 or
-                (b.pos[0] + b.size[0]) > Constants.SCREEN_SIZE[0] or
-                (b.pos[1] - b.size[1]) < 0 or
-                (b.pos[1] + b.size[1]) > Constants.SCREEN_SIZE[1]
+                (b.pos[0] - b.size) < 0 or
+                (b.pos[0] + b.size) > Constants.SCREEN_SIZE[0] or
+                (b.pos[1] - b.size) < 0 or
+                (b.pos[1] + b.size) > Constants.SCREEN_SIZE[1]
         ):
             # The try/catch is just to make sure we aren't trying to remove a bullet that doesn't exist
             try:
@@ -44,11 +44,11 @@ class Bullet:
         self.pos = pos
         self.aim = aim
 
-        self.size = (Constants.BULLET_SIZE, Constants.BULLET_SIZE)
+        self.size = Constants.BULLET_SIZE
         self.speed = Constants.BULLET_SPEED
         self.velocity = [None, None]
         self.colour = Colours.MAROON
-        self.rect = pygame.Rect(pos, self.size)
+        self.rect = pygame.Rect(pos, (self.size, self.size))
 
         # Make sure evey bullet that's instantiated is added to the list of active bullets
         active_bullets.append(self)
@@ -56,6 +56,10 @@ class Bullet:
 
     def __str__(self):
         return f"Bullet at pos {(self.rect.left, self.rect.top)}"
+
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.colour, self.rect, border_radius=self.size)
 
 
     def shoot(self):
@@ -82,7 +86,6 @@ class Bullet:
             # Regardless of what it hit, it doesn't exist anymore
             active_bullets.remove(self)
             self._explode()
-
 
     # To be used later for animation et.
     def _explode(self):

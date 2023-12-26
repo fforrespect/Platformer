@@ -1,5 +1,5 @@
 import pygame
-from Setup import Colours
+from Setup import Colours, Constants
 
 
 class Platform:
@@ -12,3 +12,7 @@ class Platform:
 
     def __str__(self):
         return f"Platform of size {self.size}, pos {self.position}"
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.colour, self.rect, border_radius=Constants.PLATFORM_BORDER_RADIUS)
+
