@@ -61,20 +61,24 @@ def decode():
     return decoded_objects, teleports
 
 
-def decode_enemy():
+def delete_enemy(enemy_to_delete_hash):
     level_number = GlobalVars.current_level
+    current_filepath = f"{Constants.ACTIVE_LEVELS_FP}{level_number}.txt"
 
-    level_file = open(f"{Constants.ACTIVE_LEVELS_FP}{level_number}.txt", "r")
-    file_lines = list(filter(None, level_file.read().split("\n")))
-    level_file.close()
+    with open(current_filepath, "r") as level_file_r:
+        file_lines = level_file_r.readlines()
 
-    for line in file_lines:
-        if line[0] == "E":
-            data = list(map(int, line[2:].split(", ")))
+    for line_i in range(len(file_lines)):
+        if file_lines[line_i][0] == "E":
+            data = list(map(int, file_lines[line_i][2:].split(", ")))
 
             size = Constants.ENEMY_SIZE
             position = data[:2]
 
-            return sum(size) + sum(position)
+            current_enemy_hash = sum(size) + sum(position)
 
-    return None
+            if enemy_to_delete_hash == current_enemy_hash:
+                file_lines[line_i] = ""
+
+                with open(current_filepath, "w") as level_file_w:
+                    level_file_w.writelines(file_lines)

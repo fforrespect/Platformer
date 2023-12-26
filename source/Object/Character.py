@@ -225,9 +225,9 @@ class Character:
 
         # if an enemy dies, remove any memory of them ever existing
         if self.is_enemy:
-            # EnemyDies.process(self)
-            active_enemies.remove(self)
-            GlobalVars.all_objects.remove(self)
+            EnemyDies.process(self)
+            # active_enemies.remove(self)
+            # GlobalVars.all_objects.remove(self)
 
         else:
             GameOver.player_dies()

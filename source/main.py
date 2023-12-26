@@ -29,7 +29,7 @@ player = Character.Character(
     is_enemy=0
 )
 
-# Set up the first level
+# Set up the first level and the level files
 decoded_objects, teleports = Level.initialise()
 
 # Logic to make sure only one click is counted at a time
