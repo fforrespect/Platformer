@@ -40,7 +40,7 @@ def decode():
         match line[0]:
             # add to the teleports dictionary
             case direction if direction in directions:
-                teleports[(level_number, direction)] = line[2:]
+                teleports[(level_number, directions.index(direction))] = line[2:]
 
             # Platform
             case "P":
