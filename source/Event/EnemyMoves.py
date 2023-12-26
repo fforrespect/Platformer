@@ -10,18 +10,11 @@ def process(enemy, player):
     player_pos = player.rect.center
 
     unit_vector = UnitVector.calculate(enemy_pos, player_pos)
-    # print(0 in unit_vector)
-    # print(enemy.level != player.level)
-    # print(enemy.is_dead)
-    # print()
-
     if (0 in unit_vector) or \
         (enemy.level != player.level) or \
          enemy.is_dead:
 
         return 0, 0, None
-    # else:
-    #     print("ready to aim!")
 
     positions_to_check = (np.arange(player_pos[0], enemy_pos[0], unit_vector[0]),
                           np.arange(player_pos[1], enemy_pos[1], unit_vector[1]))
