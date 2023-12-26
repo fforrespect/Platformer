@@ -19,7 +19,7 @@ ENEMY_SIZE = (40, 40)
 
 # Bullet #
 BULLET_SPEED = 10
-BULLET_SIZE = (10, 10)
+BULLET_SIZE = 10
 
 # Display #
 CHAR_BORDER_RADIUS = 5

@@ -44,7 +44,7 @@ class Bullet:
         self.pos = pos
         self.aim = aim
 
-        self.size = Constants.BULLET_SIZE
+        self.size = (Constants.BULLET_SIZE, Constants.BULLET_SIZE)
         self.speed = Constants.BULLET_SPEED
         self.velocity = [None, None]
         self.colour = Colours.MAROON

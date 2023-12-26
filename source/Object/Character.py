@@ -11,7 +11,7 @@ active_enemies = []
 
 def move_all(inputs, teleports):
     # Run the move function for all characters
-    for c in GlobalVars.player + active_enemies:
+    for c in [GlobalVars.player] + active_enemies:
         c.move(inputs, teleports)
 
 
