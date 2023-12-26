@@ -11,7 +11,7 @@ class Platform:
         self.rect = pygame.Rect(position, size)
 
     def __str__(self):
-        return f"Platform of size {self.size}, pos {self.position}"
+        return f"Platform of size {self.size}, at pos {self.position}"
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.colour, self.rect, border_radius=Constants.PLATFORM_BORDER_RADIUS)
