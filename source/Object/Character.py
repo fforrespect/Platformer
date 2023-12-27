@@ -31,12 +31,13 @@ class Character:
         self.facing     = facing # 0 is left, 1 is right
         self.is_enemy   = is_enemy
 
-        self.velocity   = [0, 0]
-        self.colour     = Colours.RED if is_enemy else Colours.GREEN
-        self.rect       = pygame.Rect(self.position, self.size)
-        self.lives      = 3
-        self.is_dead    = False
-        self.enemy_hash = (sum(size) + sum(position)) if is_enemy else -1
+        self.velocity      = [0, 0]
+        self.colour        = Colours.RED if is_enemy else Colours.GREEN
+        self.rect          = pygame.Rect(self.position, self.size)
+        self.bounding_rect = self.rect
+        self.lives         = Constants.ENEMY_LIVES if is_enemy else Constants.PLAYER_LIVES
+        self.is_dead       = False
+        self.enemy_hash    = (sum(size) + sum(position)) if is_enemy else -1
 
         if is_enemy:
             active_enemies.append(self)

@@ -39,15 +39,16 @@ def move_all():
 
 class Bullet:
     def __init__(self, shooter, pos, aim):
-        self.shooter = shooter
-        self.pos = pos
-        self.aim = aim
+        self.shooter       = shooter
+        self.pos           = pos
+        self.aim           = aim
 
-        self.size = Constants.BULLET_SIZE
-        self.speed = Constants.BULLET_SPEED
-        self.velocity = [None, None]
-        self.colour = Colours.MAROON
-        self.rect = pygame.Rect(pos, (self.size, self.size))
+        self.size          = Constants.BULLET_SIZE
+        self.speed         = Constants.BULLET_SPEED
+        self.velocity      = [None, None]
+        self.colour        = Colours.MAROON
+        self.rect          = pygame.Rect(pos, (self.size, self.size))
+        self.bounding_rect = self.rect
 
         # Make sure evey bullet that's instantiated is added to the list of active bullets
         active_bullets.append(self)

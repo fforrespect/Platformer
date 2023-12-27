@@ -1,62 +1,37 @@
-import pygame
-import numpy as np
-
-from Meta.Process import Vector
+from Meta.Process import Vector, Vision
 from Setup import GlobalVars
 
 
 def process(enemy):
-    player = GlobalVars.player
-
-    enemy_pos = enemy.rect.center
-    player_pos = player.rect.center
-
-    # standardise the direction the bullet's travelling in
-    unit_vector = Vector.unit_vector(enemy_pos, player_pos)
-    # 1. prevents div by 0 errors
-    # 2. if the enemy and player are on different levels, don't shoot
-    # 3. don't shoot if the enemy's dead
-    if (0 in unit_vector) or \
-            (enemy.level != player.level) or \
-            enemy.is_dead:
+    # Just a failsafe, in case this is run by mistake
+    if enemy.is_dead:
         return 0, 0, None
 
-    # essentially the range function, but moves by floats instead of ints
-    positions_to_check = (np.arange(player_pos[0], enemy_pos[0], unit_vector[0]),
-                          np.arange(player_pos[1], enemy_pos[1], unit_vector[1]))
+    player = GlobalVars.player
 
-    something_in_way = False
+    can_see = Vision.can_see_each_other(enemy, player)
 
-    # iterate through all positions and check if there's anything in the way
-    for i in range(len(positions_to_check[0])):
-        position_i = [positions_to_check[0][i], positions_to_check[1][i]]
-
-        # check every position between the player and the enemy,
-        #   create a rect at that position, and...
-        rect = pygame.Rect(position_i, (10, 10))
-        # check if it collides with anything on the screen (i.e. if anything's in the way)
-        collided = rect.collidelist(GlobalVars.all_objects)
-
-        # 1. if nothing's in the way...
-        # 2. ...or if just itself is in the way...
-        # 3. ...or if just the player is in the way...
-        if (collided == -1) or \
-                (GlobalVars.all_objects[collided] is enemy) or \
-                (GlobalVars.all_objects[collided] is player):
-
-            # ...then something_in_way remains false
-            continue
-
-        # but if there is something in the way...
-        else:
-            something_in_way = True
-
-    # ...don't shoot,
-    #   otherwise, aim at the player
-    aim = player_pos if not something_in_way else None
-
-    l_or_r = 0
+    l_or_r = 0 # _move_l_r(enemy_pos, player_pos)
     has_jumped = 0
+    # If the enemy can see the player, it will shoot, no matter what
+    aim = player.bounding_rect.center if can_see else None
 
     # return the results of all the processing
     return l_or_r, has_jumped, aim
+
+
+def _move_l_r(enemy, player):
+    enemy_pos = enemy.bounding_rect.center
+    player_pos = player.bounding_rect.center
+
+    current_distance = Vector.distance(enemy_pos, player_pos)
+
+    # If the enemy moved ..., would it be closer to the player or not?:
+    # If so, move in that direction
+    # ...left...
+    if Vector.distance_l_r(enemy_pos, player_pos, -1) < current_distance:
+        return -1
+    # ...right...
+    elif Vector.distance_l_r(enemy_pos, player_pos, 1) < current_distance:
+        return 1
+    return 0
