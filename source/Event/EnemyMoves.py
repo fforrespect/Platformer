@@ -1,20 +1,19 @@
 from Meta.Process import Vector, Vision
-from Setup import GlobalVars
+from Setup import GlobalVars, Constants
 
 
 def process(enemy):
-    # Just a failsafe, in case this is run by mistake
-    if enemy.is_dead:
-        return 0, 0, None
-
     player = GlobalVars.player
 
-    can_see = Vision.can_see_each_other(enemy, player)
+    # The processing won't be done at all if the enemy can't see the player
+    if enemy.is_dead or not Vision.can_see_each_other(enemy, player):
+        return 0, 0, None
 
-    l_or_r = 0 # _move_l_r(enemy_pos, player_pos)
+    l_or_r = _move_l_r(enemy, player)
     has_jumped = 0
-    # If the enemy can see the player, it will shoot, no matter what
-    aim = player.bounding_rect.center if can_see else None
+    # If the enemy can see the player, it will try and shoot, no matter what
+    # However, it can only shoot every x frames, where x is Constants.ENEMY_SHOOT_BUFFER
+    aim = player.bounding_rect.center if not GlobalVars.elapsed_frames % Constants.ENEMY_SHOOT_BUFFER else None
 
     # return the results of all the processing
     return l_or_r, has_jumped, aim
