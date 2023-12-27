@@ -2,6 +2,7 @@ import pygame
 import numpy as np
 
 from Meta.Process import Vector
+from Object import Bullet
 from Setup import GlobalVars
 
 
@@ -37,9 +38,11 @@ def can_see_each_other(object1, object2):
         # 1. if nothing's in the way...
         # 2. ...or if just itself is in the way...
         # 3. ...or if just the player is in the way...
+        # 4. ...or if it just collided with a bullet (we can consider bullets to be invisible)...
         if (collided == -1) or \
                 (GlobalVars.all_objects[collided] is object1) or \
-                (GlobalVars.all_objects[collided] is object2):
+                (GlobalVars.all_objects[collided] is object2) or \
+                (isinstance(collided, Bullet.Bullet)):
 
             # ...then something_in_way remains false
             continue
