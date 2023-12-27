@@ -11,9 +11,8 @@ from Setup import Constants, GlobalVars
 # Initialise global variables
 GlobalVars.current_level = level_memory = 0
 GlobalVars.game_running = True
-GlobalVars.all_objects = []
-GlobalVars.elapsed_frames = 0
-GlobalVars.current_frame = 0
+GlobalVars.all_objects = GlobalVars.all_overlays = []
+GlobalVars.elapsed_frames = GlobalVars.current_frame = 0
 
 # Set up pygame
 pygame.init()

@@ -43,4 +43,5 @@ _LEVELS_FP = f"{_RESOURCES_FP}Levels/"
 
 ACTIVE_LEVELS_FP = f"{_LEVELS_FP}Active/"
 STORED_LEVELS_FP = f"{_LEVELS_FP}Store/"
+
 IMAGES_FP = f"{_RESOURCES_FP}Images/"
