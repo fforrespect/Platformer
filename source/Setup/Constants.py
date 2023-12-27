@@ -38,6 +38,9 @@ RIGHT_BUTTON = pygame.K_d
 JUMP_BUTTON = pygame.K_SPACE
 
 # Files #
-ACTIVE_LEVELS_FP = "../Resources/Levels/Active/"
-STORED_LEVELS_FP = "../Resources/Levels/Store/"
-IMAGES_FP = "../Resources/Images/"
+_RESOURCES_FP = "../Resources/"
+_LEVELS_FP = f"{_RESOURCES_FP}Levels/"
+
+ACTIVE_LEVELS_FP = f"{_LEVELS_FP}Active/"
+STORED_LEVELS_FP = f"{_LEVELS_FP}Store/"
+IMAGES_FP = f"{_RESOURCES_FP}Images/"
