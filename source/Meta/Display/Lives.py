@@ -1,6 +1,6 @@
 import pygame
 
-from Setup import GlobalVars, Colours, Constants
+from Setup import GlobalVars, Constants
 
 
 def display():
@@ -13,13 +13,15 @@ def display():
 
 class Life:
     def __init__(self, number):
-        self.centre = (Constants.LIVES_START_X - (number * Constants.LIVES_SPACING), Constants.LIVES_PADDING)
-        self.radius = Constants.LIVES_RADIUS
-
-        self.colour = Colours.RED
+        self.x = Constants.LIVES_START_X - (number * Constants.LIVES_SPACING)
+        self.y = Constants.LIVES_PADDING
+        self.image = f"{Constants.IMAGES_FP}life.png"
 
         GlobalVars.all_overlays.append(self)
 
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.colour, self.centre, self.radius)
+        life_img = pygame.image.load(self.image)
+        life_img = pygame.transform.scale(life_img, (50, 50))
+
+        screen.blit(life_img, (self.x, self.y))
