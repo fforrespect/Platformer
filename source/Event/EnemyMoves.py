@@ -1,7 +1,7 @@
 import pygame
 import numpy as np
 
-from Meta.Process import UnitVector
+from Meta.Process import Vector
 from Setup import GlobalVars
 
 
@@ -12,7 +12,7 @@ def process(enemy):
     player_pos = player.rect.center
 
     # standardise the direction the bullet's travelling in
-    unit_vector = UnitVector.calculate(enemy_pos, player_pos)
+    unit_vector = Vector.unit_vector(enemy_pos, player_pos)
     # 1. prevents div by 0 errors
     # 2. if the enemy and player are on different levels, don't shoot
     # 3. don't shoot if the enemy's dead

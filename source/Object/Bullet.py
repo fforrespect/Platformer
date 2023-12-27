@@ -1,6 +1,6 @@
 import pygame
 
-from Meta.Process import UnitVector
+from Meta.Process import Vector
 from Object import Character
 from Setup import Constants, GlobalVars, Colours
 
@@ -62,7 +62,7 @@ class Bullet:
 
 
     def shoot(self):
-        unit_vector = UnitVector.calculate(self.pos, self.aim)
+        unit_vector = Vector.unit_vector(self.pos, self.aim)
 
         # the speed * the unit vector is how much it should move that frame
         self.velocity = list(map(lambda x: -self.speed*x, unit_vector))
