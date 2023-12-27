@@ -12,6 +12,8 @@ from Setup import Constants, GlobalVars
 GlobalVars.current_level = level_memory = 0
 GlobalVars.game_running = True
 GlobalVars.all_objects = []
+GlobalVars.elapsed_frames = 0
+GlobalVars.current_frame = 0
 
 # Set up pygame
 pygame.init()
@@ -37,6 +39,9 @@ click = 0
 
 while GlobalVars.game_running:
     clock.tick(Constants.FPS)
+
+    GlobalVars.elapsed_frames += 1
+    GlobalVars.current_frame = GlobalVars.elapsed_frames % Constants.FPS
 
     # Checks if the red x has been pressed, and quits the game if so
     if GameOver.quit_pressed(pygame.event.get()):
